@@ -1,3 +1,4 @@
+import { Header } from "@/app/components/ui/Header";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -18,18 +19,23 @@ export const metadata: Metadata = {
   description: "A challenge from Frontend Mentor Platform.",
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): JSX.Element => {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background min-h-screen h-full`}
       >
+        <header className="max-w-[1300px] w-full mx-auto my-10 bg-white p-6 rounded-lg">
+          <Header />
+        </header>
         {children}
       </body>
     </html>
   );
 }
+
+export default RootLayout;

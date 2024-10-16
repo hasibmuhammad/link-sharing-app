@@ -1,7 +1,17 @@
-export default function Home() {
+"use client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+const Home = (): JSX.Element => {
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/links");
+  }, [router]);
   return (
-    <div>
-      <h1>Hello world</h1>
-    </div>
-  );
+    <main>
+
+    </main>
+  )
 }
+
+export default Home;
