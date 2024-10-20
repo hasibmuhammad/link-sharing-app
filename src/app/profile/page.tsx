@@ -123,7 +123,7 @@ const Profile = (): JSX.Element => {
                                             alt="Empty Link Placeholder"
                                         />
                                     </div>
-                                    <h2 className="text-center font-bold text-2xl md:text-4xl">Let’s get you started</h2>
+                                    <h2 className="text-center font-bold text-2xl md:text-4xl">Let&apos;s get you started</h2>
                                     <p className="max-w-[560px] text-center">
                                         Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We’re here to help you share your profiles with everyone!
                                     </p>

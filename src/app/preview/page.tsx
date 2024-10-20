@@ -66,18 +66,18 @@ const Preview = (): JSX.Element => {
                                     <Link href={`${li?.url ? li?.url : "#"}`} target="_blank">
                                         <div
                                             className={`w-[237px] h-[44px] rounded-lg px-4 flex justify-between cursor-pointer`}
-                                            style={{ backgroundColor: `${listArray[li?.selectedItem - 1].color}` }}
+                                            style={{ backgroundColor: `${listArray[li?.selectedItem - 1]?.color}` }}
                                         >
                                             <div className="flex items-center gap-3">
                                                 <Image
-                                                    src={listArray[li?.selectedItem - 1].icon}
-                                                    alt={listArray[li?.selectedItem - 1].title}
+                                                    src={listArray[li?.selectedItem - 1]?.icon}
+                                                    alt={listArray[li?.selectedItem - 1]?.title}
                                                     width={16}
                                                     height={16}
                                                     style={{ filter: "invert(1)" }}
                                                 />
                                                 <p className="text-white">
-                                                    {listArray[li?.selectedItem - 1].title}
+                                                    {listArray[li?.selectedItem - 1]?.title}
                                                 </p>
                                             </div>
                                             <Image

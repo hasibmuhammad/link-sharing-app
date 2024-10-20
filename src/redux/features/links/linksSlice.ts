@@ -13,7 +13,7 @@ interface ILinksState {
     nextId: number;
 }
 const loadFromLocalStorage = (): ILinksState => {
-    const savedLinks = localStorage.getItem("links");
+    const savedLinks = localStorage?.getItem("links");
     return savedLinks ? JSON.parse(savedLinks) : { links: [], nextId: 1 }
 
 }
