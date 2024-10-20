@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.filter {
+  /* filter: invert(29%) sepia(57%) saturate(4897%) hue-rotate(195deg) brightness(92%) contrast(101%); */
+  filter: invert(34%) sepia(92%) saturate(7491%) hue-rotate(239deg) brightness(95%) contrast(101%);
+}

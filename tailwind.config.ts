@@ -13,7 +13,8 @@ const config: Config = {
         background: "#FAFAFA"
       },
       boxShadow: {
-        custom: "rgba(99, 60, 255, 0.25) 0px 0px 32px 0px"
+        custom: "rgba(99, 60, 255, 0.25) 0px 0px 32px 0px",
+        preview: "rgba(0, 0, 0, 0.1) 0px 0px 32px 0px"
       }
     },
   },
