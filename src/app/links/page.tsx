@@ -66,7 +66,9 @@ const Links = (): JSX.Element | null => {
             if (item.url === "") {
                 setError((prevErrors) => {
                     // Check if the error with the same id already exists
-                    const errorExists = prevErrors.some((error) => error.id === item?.id);
+                    const errorExists = prevErrors.some((error) => {
+                        return error.id === item?.id
+                    });
                     if (!errorExists) {
                         // Add the new error if it doesn't exist
                         return [...prevErrors, { id: item?.id, message: "Can't be empty!" }];
@@ -212,11 +214,11 @@ const Links = (): JSX.Element | null => {
                                                                     `}
                                                         />
                                                         {
-                                                            error && error.map(er => {
+                                                            error && error.map((er, idx) => {
                                                                 if (er.id === li?.id) {
 
                                                                     return (
-                                                                        <div className="absolute right-4">
+                                                                        <div key={idx} className="absolute right-4">
                                                                             <p className="text-red-400">{er?.message}</p>
                                                                         </div>
                                                                     )
