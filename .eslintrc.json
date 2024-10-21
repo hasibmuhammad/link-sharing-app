@@ -10,7 +10,8 @@
     "sentry.edge.config.ts",
     "sentry.server.config.ts",
     "./src/instrumentation.ts",
-    "./src/app/global-error.tsx"
+    "./src/app/global-error.tsx",
+    "./src/redux/features/links/linksSlice.ts"
   ],
   "overrides": [
     {
