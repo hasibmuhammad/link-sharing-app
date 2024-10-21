@@ -3,10 +3,15 @@ import PreviewHeader from "@/app/components/ui/PreviewHeader";
 import { RootState } from "@/app/store/store";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const Preview = (): JSX.Element => {
+const Preview = (): JSX.Element | null => {
+    const [isMounted, setIsMounted] = useState(false);
+
     const links = useSelector((state: RootState) => { return state?.links?.links });
+    const profileInfo = useSelector((state: RootState) => { return state?.profile });
+
     const listArray = [
         { id: 1, title: "GitHub", icon: "/images/github.svg", color: "rgba(26, 26, 26, 1)", link: "https://github.com/", regEx: /^(?:https?:\/\/)?(?:www\.)?github\.com\/([a-zA-Z0-9_-]+)(?:\/.*)?$/ },
         { id: 2, title: "YouTube", icon: "/images/youtube.svg", color: "rgba(238, 57, 57, 1)", link: "https://www.youtube.com/", regEx: /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:user\/|c\/)?|youtu\.be\/)([a-zA-Z0-9_-]+)(?:\/.*)?$/ },
@@ -24,6 +29,13 @@ const Preview = (): JSX.Element => {
         { id: 14, title: "GitLab", icon: "/images/gitlab.svg", color: "rgba(114, 85, 82, 0.7)", link: "https://about.gitlab.com/", regEx: /^(?:https?:\/\/)?(?:www\.)?gitlab\.com\/([a-zA-Z0-9_-]+)(?:\/.*)?$/ },
     ];
 
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) {
+        return null;
+    }
 
     return (
         <main className="relative">
@@ -39,7 +51,15 @@ const Preview = (): JSX.Element => {
                 <div className="absolute top-0 translate-y-52 bg-white md:w-[349px] w-full h-[550px] md:rounded-2xl md:shadow-preview">
                     <div className="md:mt-12 space-y-6">
                         <div className="flex justify-center">
-                            <div className="bg-[#EEEEEE] w-24 h-24 rounded-full border-4 border-primary"></div>
+                            <div className={`bg-[#EEEEEE] w-24 h-24 rounded-full border-4 ${profileInfo?.profileImage ? "border-primary" : ""}`}>
+                                {profileInfo?.profileImage && <Image
+                                    src={profileInfo?.profileImage ?? ""}
+                                    width={96}
+                                    height={96}
+                                    alt="Profile Image"
+                                    className="w-full h-full rounded-full object-cover"
+                                />}
+                            </div>
                         </div>
                         <div className="space-y-3 flex flex-col items-center">
                             <div className="bg-[#EEEEEE] w-[160px] h-4 rounded-[104px]"></div>

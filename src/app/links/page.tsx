@@ -1,13 +1,18 @@
 "use client";
 import { Header } from "@/app/components/ui/Header";
+import MobileMockupWrapper from "@/app/components/ui/MobileMockupWrapper";
 import { RootState } from "@/app/store/store";
+import { listArray } from "@/constants";
 import { addLink, handlePlatformSelectRedux, removeLink, toggleDropDownRedux, update, updateLink } from "@/redux/features/links/linksSlice";
 import Image from "next/image";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const Links = (): JSX.Element => {
-    const links = useSelector((state: RootState) => { return state?.links?.links })
+const Links = (): JSX.Element | null => {
+    const [isMounted, setIsMounted] = useState(false);
+    const [error, setError] = useState<{ id: number | null; message: string }[]>([]);
+
+    const links = useSelector((state: RootState) => { return state?.links?.links });
 
     const dispatch = useDispatch();
 
@@ -23,22 +28,13 @@ const Links = (): JSX.Element => {
         dispatch(addLink());
     };
 
-    const listArray = [
-        { id: 1, title: "GitHub", icon: "/images/github.svg", color: "rgba(26, 26, 26, 1)", link: "https://github.com/", regEx: /^(?:https?:\/\/)?(?:www\.)?github\.com\/([a-zA-Z0-9_-]+)(?:\/.*)?$/ },
-        { id: 2, title: "YouTube", icon: "/images/youtube.svg", color: "rgba(238, 57, 57, 1)", link: "https://www.youtube.com/", regEx: /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:user\/|c\/)?|youtu\.be\/)([a-zA-Z0-9_-]+)(?:\/.*)?$/ },
-        { id: 3, title: "LinkedIn", icon: "/images/linkedin.svg", color: "rgba(45, 104, 255, 1)", link: "https://linkedin.com/", regEx: /^(?:https?:\/\/)?(?:www\.)?linkedin\.com\/(?:in|pub|company)\/([a-zA-Z0-9_-]+)(?:\/.*)?$/ },
-        { id: 4, title: "Facebook", icon: "/images/facebook.svg", color: "rgba(253, 189, 72, 0.8)", link: "https://www.facebook.com/", regEx: /^(?:https?:\/\/)?(?:www\.)?facebook\.com\/(?:profile\.php\?id=|people\/)?([a-zA-Z0-9._-]+)(?:\/.*)?$/ },
-        { id: 5, title: "Frontend Mentor", icon: "/images/frontendmentor.svg", color: "rgba(22, 117, 169, 0.9)", link: "https://www.frontendmentor.io/", regEx: /^https:\/\/www.frontendmentor.io\/profile\/.+$/ },
-        { id: 6, title: "Twitch", icon: "/images/twitch.svg", color: "rgba(201, 96, 164, 0.6)", link: "https://www.twitch.tv/", regEx: /^(?:https?:\/\/)?(?:www\.)?twitch\.tv\/([a-zA-Z0-9_-]+)(?:\/.*)?$/ },
-        { id: 7, title: "Stack Overflow", icon: "/images/stackoverflow.svg", color: "rgba(46, 167, 51, 0.9)", link: "https://stackoverflow.com/", regEx: /^(?:https?:\/\/)?(?:www\.)?stackoverflow\.com\/users\/([0-9]+)(?:\/.*)?$/ },
-        { id: 8, title: "Dev.to", icon: "/images/devto.svg", color: "rgba(51, 51, 51, 1)", link: "https://dev.to/", regEx: /^(?:https?:\/\/)?(?:www\.)?dev\.to\/([a-zA-Z0-9_-]+)(?:\/.*)?$/ },
-        { id: 9, title: "CodeWars", icon: "/images/codewars.svg", color: "rgba(138, 26, 80, 1)", link: "https://www.codewars.com/", regEx: /^(?:https?:\/\/)?(?:www\.)?codewars\.com\/users\/([a-zA-Z0-9_-]+)(?:\/.*)?$/ },
-        { id: 10, title: "CodePen", icon: "/images/codepen.svg", color: "rgba(238, 47, 117, 0.6)", link: "https://codepen.io/", regEx: /^(?:https?:\/\/)?(?:www\.)?codepen\.io\/([a-zA-Z0-9_-]+)(?:\/.*)?$/ },
-        { id: 11, title: "freeCodeCamp", icon: "/images/freecodecamp.svg", color: "rgba(48, 34, 103, 1)", link: "https://www.freecodecamp.org/", regEx: /^(?:https?:\/\/)?(?:www\.)?freecodecamp\.org\/([a-zA-Z0-9_-]+)(?:\/.*)?$/ },
-        { id: 12, title: "Twitter", icon: "/images/twitter.svg", color: "rgba(47, 132, 229, 0.8)", link: "https://twitter.com/", regEx: /^(?:https?:\/\/)?(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)(?:\/.*)?$/ },
-        { id: 13, title: "Email", icon: "/images/email.svg", color: "rgba(155, 100, 214, 1)", link: "https://www.gmail.com", regEx: /^(?:https?:\/\/)?(?:www\.)?gitlab\.com\/([a-zA-Z0-9_-]+)(?:\/.*)?$/ },
-        { id: 14, title: "GitLab", icon: "/images/gitlab.svg", color: "rgba(114, 85, 82, 0.7)", link: "https://about.gitlab.com/", regEx: /^(?:https?:\/\/)?(?:www\.)?gitlab\.com\/([a-zA-Z0-9_-]+)(?:\/.*)?$/ },
-    ];
+    useEffect(() => {
+        setIsMounted(true);
+    }, [])
+
+    if (!isMounted) {
+        return null;
+    }
 
     const toggleDropdown = (id: number): void => {
         // setLinks(links.map(link => { return link.id === id ? { ...link, isDropdownOpen: !link.isDropdownOpen } : link }));
@@ -59,10 +55,32 @@ const Links = (): JSX.Element => {
         dispatch(updateLink({ id, newLink }));
     };
 
+
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
 
-        dispatch(update())
+        setError([]);
+
+        links?.forEach((item) => {
+            if (item.url === "") {
+                setError((prevErrors) => {
+                    // Check if the error with the same id already exists
+                    const errorExists = prevErrors.some((error) => error.id === item?.id);
+                    if (!errorExists) {
+                        // Add the new error if it doesn't exist
+                        return [...prevErrors, { id: item?.id, message: "Can't be empty!" }];
+                    }
+                    return prevErrors; // Return the previous errors without modification if error already exists
+                });
+            }
+        });
+
+        if (error.length === 0) {
+            dispatch(update());
+        }
+
+
     }
 
 
@@ -76,53 +94,7 @@ const Links = (): JSX.Element => {
             <section className="max-w-[1300px] mx-auto px-5 lg:px-0">
                 <div className="grid md:grid-cols-3 gap-10">
                     <div className="bg-white md:col-span-1 p-6 h-[800px] rounded-lg hidden lg:flex justify-center items-center">
-                        <div className="relative">
-                            <Image
-                                src={"/images/phone-mockup.svg"}
-                                alt="Phone mockup"
-                                width={308}
-                                height={632}
-                            />
-
-                            {
-                                links && links?.map((li, index) => {
-                                    const currentLi = listArray?.filter(item => { return item?.id === li?.selectedItem });
-                                    return (
-                                        <div
-                                            className="absolute left-[35px]"
-                                            style={{ top: `${44 + index * 10}%` }}
-                                            key={li?.id}
-                                        >
-                                            <Link href={`${li?.url ? li?.url : "#"}`} target="_blank">
-                                                <div
-                                                    className={`w-[237px] h-[44px] rounded-lg px-4 flex justify-between cursor-pointer`}
-                                                    style={{ backgroundColor: currentLi[0]?.color }}
-                                                >
-                                                    <div className="flex items-center gap-3">
-                                                        <Image
-                                                            src={currentLi[0]?.icon}
-                                                            alt={currentLi[0]?.title}
-                                                            width={16}
-                                                            height={16}
-                                                            style={{ filter: "invert(1)" }}
-                                                        />
-                                                        <p className="text-white">
-                                                            {currentLi[0]?.title}
-                                                        </p>
-                                                    </div>
-                                                    <Image
-                                                        src={"/images/arrow-right.svg"}
-                                                        alt="Caret"
-                                                        width={16}
-                                                        height={16}
-                                                    />
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
+                        <MobileMockupWrapper />
                     </div>
                     <div className="bg-white p-10 col-span-3 lg:col-span-2 rounded-lg">
                         <div className="space-y-4">
@@ -233,8 +205,24 @@ const Links = (): JSX.Element => {
                                                             value={li?.url}
                                                             onChange={(e) => { handleInputChange(li.id, e.target.value); }}
                                                             placeholder={`e.g. ${selectedOne ? selectedOne.link : ""}`}
-                                                            className="pl-10 w-full bg-white rounded-lg border px-4 h-12 flex items-center focus:outline-none focus:border-primary focus:shadow-custom"
+                                                            className={`pl-10 w-full bg-white rounded-lg border px-4 h-12 flex items-center focus:outline-none focus:border-primary focus:shadow-custom
+                                                                        ${error.some((er) => {
+                                                                return er.id === li?.id
+                                                            }) ? "border-red-500" : ""}
+                                                                    `}
                                                         />
+                                                        {
+                                                            error && error.map(er => {
+                                                                if (er.id === li?.id) {
+
+                                                                    return (
+                                                                        <div className="absolute right-4">
+                                                                            <p className="text-red-400">{er?.message}</p>
+                                                                        </div>
+                                                                    )
+                                                                }
+                                                            })
+                                                        }
                                                         <div className="absolute top-[40%] left-4">
                                                             <Image
                                                                 src={"/images/logo-links.svg"}
@@ -257,7 +245,7 @@ const Links = (): JSX.Element => {
                             <div className="mt-10">
                                 <hr />
                                 <div className="mt-10 flex justify-end items-center">
-                                    <button form="form" type="submit" className="bg-primary px-5 py-2 rounded-lg text-white">Save</button>
+                                    <button form="form" type="submit" className="bg-primary px-5 py-2 rounded-lg text-white hover:bg-primary/40">Save</button>
                                 </div>
                             </div>
                         }

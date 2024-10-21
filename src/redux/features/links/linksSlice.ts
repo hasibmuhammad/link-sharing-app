@@ -70,8 +70,7 @@ const linksSlice = createSlice({
                 return link.id === action.payload.id
                     ? { ...link, selectedItem: action.payload.selectedItem, isDropdownOpen: false }
                     : link
-            }
-            );
+            });
         },
 
         updateLink: (state, action: PayloadAction<{ id: number; newLink: string }>) => {
