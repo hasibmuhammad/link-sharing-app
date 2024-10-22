@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const handleCopytoClipboard = (): void => {
+    console.log(window.location.href);
     navigator.clipboard.writeText(window.location.href);
 }
 
