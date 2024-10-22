@@ -17,14 +17,6 @@ const Links = (): JSX.Element | null => {
     const dispatch = useDispatch();
 
     const handleAddNewLink = (): void => {
-        // const newLink = {
-        //     id: links.length + 1,
-        //     link: `Link #${links.length + 1}`,
-        //     selectedItem: 1,
-        //     isDropdownOpen: false,
-        // };
-        // setLinks([...links, newLink]);
-
         dispatch(addLink());
     };
 

@@ -46,8 +46,23 @@ const Preview = (): JSX.Element | null => {
                             </div>
                         </div>
                         <div className="space-y-3 flex flex-col items-center">
-                            <div className="bg-[#EEEEEE] w-[160px] h-4 rounded-[104px]"></div>
-                            <div className="bg-[#EEEEEE] w-[72px] h-2 rounded-[104px]"></div>
+                            {
+                                (profileInfo?.firstName && profileInfo?.lastName) ?
+                                    <span className="w-[160px] h-4 text-center text-slate-500 text-sm">
+                                        {profileInfo?.firstName} {profileInfo?.lastName}
+                                    </span>
+                                    :
+                                    <div className="bg-[#EEEEEE] w-[160px] h-4 rounded-[104px]"></div>
+                            }
+                            {
+                                profileInfo?.email ?
+                                    <span className="w-[160px] h-2 text-center text-slate-500 text-sm">
+                                        {profileInfo?.email}
+                                    </span>
+                                    :
+                                    <div className="bg-[#EEEEEE] w-[72px] h-2 rounded-[104px]"></div>
+                            }
+
                         </div>
                     </div>
                     <div className="mt-10 flex flex-col items-center gap-4">

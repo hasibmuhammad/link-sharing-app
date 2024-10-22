@@ -2,7 +2,7 @@
 import { Header } from "@/app/components/ui/Header";
 import MobileMockupWrapper from "@/app/components/ui/MobileMockupWrapper";
 import { RootState } from "@/app/store/store";
-import { updateProfileImage } from "@/redux/features/profile/profileSlice";
+import { updateProfile, updateProfileImage } from "@/redux/features/profile/profileSlice";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +25,9 @@ const Profile = (): JSX.Element | null => {
 
     useEffect(() => {
         setSelectedImage(profileInfo?.profileImage ?? null);
+        setFirstName(profileInfo?.firstName ?? "");
+        setLastName(profileInfo?.lastName ?? "");
+        setEmail(profileInfo?.email ?? "");
     }, [profileInfo]);
 
     // Helper function to convert a Blob to a Base64 string
@@ -77,6 +80,10 @@ const Profile = (): JSX.Element | null => {
 
         if (!lastName) {
             setLastNameError("Last name is required!");
+        }
+
+        if ((firstName && lastName) || email) {
+            dispatch(updateProfile({ firstName, lastName, email }));
         }
     }
 

@@ -32,9 +32,16 @@ const profileSlice = createSlice({
         updateProfileImage: (state, action: PayloadAction<string | null>) => {
             state.profileImage = action.payload;
             saveProfileToLocalStorage(state);
+        },
+        updateProfile: (state, action: PayloadAction<{ firstName: string, lastName: string, email: string }>) => {
+            state.firstName = action.payload.firstName;
+            state.lastName = action.payload.lastName;
+            state.email = action.payload.email;
+
+            saveProfileToLocalStorage(state);
         }
     }
 });
 
-export const { updateProfileImage } = profileSlice.actions;
+export const { updateProfileImage, updateProfile } = profileSlice.actions;
 export default profileSlice.reducer;

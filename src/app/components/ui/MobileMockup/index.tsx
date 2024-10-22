@@ -19,17 +19,36 @@ const MobileMockup = (): JSX.Element => {
             />
 
             {
-                profileInfo?.profileImage && <div className="absolute top-[62px] left-[106px]">
-                    <div className="w-24 h-24 border-4 border-primary rounded-full">
-                        <Image
-                            src={profileInfo.profileImage}
-                            alt="Profile Image"
-                            className="w-full h-full object-cover rounded-full"
-                            width={96}
-                            height={96}
-                        />
-                    </div>
-                </div>
+                <>
+                    {profileInfo?.profileImage && <div className="absolute top-[62px] left-[106px]">
+                        <div className="w-24 h-24 border-4 border-primary rounded-full">
+                            <Image
+                                src={profileInfo.profileImage}
+                                alt="Profile Image"
+                                className="w-full h-full object-cover rounded-full"
+                                width={96}
+                                height={96}
+                            />
+                        </div>
+                    </div>}
+
+                    {profileInfo?.firstName && profileInfo?.lastName &&
+                        <div className="absolute top-[180px] left-[74px] w-[160px] h-[22px] text-center bg-white rounded-full">
+                            <p className="text-slate-500 text-sm">
+                                {profileInfo?.firstName} {profileInfo?.lastName}
+                            </p>
+                        </div>
+                    }
+
+                    {profileInfo?.email &&
+                        <div className="absolute top-[200px] left-[74px] w-[160px] h-[22px] text-center bg-white rounded-full">
+                            <p className="text-slate-500 text-sm">
+                                {profileInfo?.email}
+                            </p>
+                        </div>
+                    }
+                </>
+
             }
 
             {
