@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }): JSX.Element => {
   return (
     <html lang="en">
+      <link rel="shortcut icon" href="/images/logo-devlinks-small.svg" type="image/x-icon" />
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background min-h-screen h-full`}>
         <ReduxStoreProvider>
           {children}
