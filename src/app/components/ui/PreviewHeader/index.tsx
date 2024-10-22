@@ -24,7 +24,7 @@ const PreviewHeader = ({ onCopy }: IProps): JSX.Element => {
         }
 
         onCopy(copied);
-    }, [copied])
+    }, [copied, onCopy])
 
 
 
