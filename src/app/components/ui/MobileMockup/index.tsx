@@ -41,31 +41,58 @@ const MobileMockup = (): JSX.Element => {
                             style={{ top: `${44 + index * 10}%` }}
                             key={li?.id}
                         >
-                            <Link href={`${li?.url ? li?.url : "#"}`} target="_blank">
-                                <div
-                                    className={`w-[237px] h-[44px] rounded-lg px-4 flex justify-between cursor-pointer`}
-                                    style={{ backgroundColor: currentLi[0]?.color }}
-                                >
-                                    <div className="flex items-center gap-3">
+                            {
+                                li?.url ?
+                                    <Link href={`${li?.url}`} target="_blank">
+                                        <div
+                                            className={`w-[237px] h-[44px] rounded-lg px-4 flex justify-between cursor-pointer`}
+                                            style={{ backgroundColor: currentLi[0]?.color }}
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <Image
+                                                    src={currentLi[0]?.icon}
+                                                    alt={currentLi[0]?.title}
+                                                    width={16}
+                                                    height={16}
+                                                    style={{ filter: "invert(1)" }}
+                                                />
+                                                <p className="text-white">
+                                                    {currentLi[0]?.title}
+                                                </p>
+                                            </div>
+                                            <Image
+                                                src={"/images/arrow-right.svg"}
+                                                alt="Caret"
+                                                width={16}
+                                                height={16}
+                                            />
+                                        </div>
+                                    </Link>
+                                    :
+                                    <div
+                                        className={`w-[237px] h-[44px] rounded-lg px-4 flex justify-between cursor-pointer`}
+                                        style={{ backgroundColor: currentLi[0]?.color }}
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <Image
+                                                src={currentLi[0]?.icon}
+                                                alt={currentLi[0]?.title}
+                                                width={16}
+                                                height={16}
+                                                style={{ filter: "invert(1)" }}
+                                            />
+                                            <p className="text-white">
+                                                {currentLi[0]?.title}
+                                            </p>
+                                        </div>
                                         <Image
-                                            src={currentLi[0]?.icon}
-                                            alt={currentLi[0]?.title}
+                                            src={"/images/arrow-right.svg"}
+                                            alt="Caret"
                                             width={16}
                                             height={16}
-                                            style={{ filter: "invert(1)" }}
                                         />
-                                        <p className="text-white">
-                                            {currentLi[0]?.title}
-                                        </p>
                                     </div>
-                                    <Image
-                                        src={"/images/arrow-right.svg"}
-                                        alt="Caret"
-                                        width={16}
-                                        height={16}
-                                    />
-                                </div>
-                            </Link>
+                            }
                         </div>
                     )
                 })
