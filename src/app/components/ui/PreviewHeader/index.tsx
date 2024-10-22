@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+const handleCopytoClipboard = (): void => {
+    navigator.clipboard.writeText(window.location.href);
+}
+
 const PreviewHeader = (): JSX.Element => {
     return (
         <section>
@@ -7,7 +11,7 @@ const PreviewHeader = (): JSX.Element => {
                 <Link href={"/profile"}>
                     <button className="capitalize text-primary border border-primary rounded-lg px-5 py-2 hover:bg-primary/10 font-semibold">Back to editor</button>
                 </Link>
-                <button className="bg-primary capitalize  border border-primary rounded-lg px-5 py-2 hover:bg-primary/60 font-semibold text-white">Share Link</button>
+                <button onClick={handleCopytoClipboard} className="bg-primary capitalize  border border-primary rounded-lg px-5 py-2 hover:bg-primary/60 font-semibold text-white">Share Link</button>
             </div>
         </section>
     )
