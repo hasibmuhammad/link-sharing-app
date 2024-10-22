@@ -89,7 +89,7 @@ const Links = (): JSX.Element | null => {
     return (
         <>
             <header className="px-5 lg:px-0">
-                <div className="max-w-[1300px] w-full mx-auto my-10 bg-white p-6 rounded-lg">
+                <div className="max-w-[1300px] w-full mx-auto md:my-10 md:bg-white py-6 md:p-6 rounded-lg">
                     <Header />
                 </div>
             </header>
@@ -98,7 +98,7 @@ const Links = (): JSX.Element | null => {
                     <div className="bg-white md:col-span-1 p-6 h-[800px] rounded-lg hidden lg:flex justify-center items-center">
                         <MobileMockupWrapper />
                     </div>
-                    <div className="bg-white p-10 col-span-3 lg:col-span-2 rounded-lg">
+                    <div className="bg-white py-5 md:p-10 col-span-3 lg:col-span-2 rounded-lg">
                         <div className="space-y-4">
                             <h1 className="text-2xl md:text-4xl font-bold text-gray-800">Customize your links</h1>
                             <p className="text-slate-400">
@@ -246,8 +246,8 @@ const Links = (): JSX.Element | null => {
                             links?.length > 0 &&
                             <div className="mt-10">
                                 <hr />
-                                <div className="mt-10 flex justify-end items-center">
-                                    <button form="form" type="submit" className="bg-primary px-5 py-2 rounded-lg text-white hover:bg-primary/40">Save</button>
+                                <div className="mt-10 flex md:justify-end md:items-center">
+                                    <button form="form" type="submit" className="bg-primary px-5 py-2 rounded-lg text-white hover:bg-primary/40 w-full md:w-[100px]">Save</button>
                                 </div>
                             </div>
                         }

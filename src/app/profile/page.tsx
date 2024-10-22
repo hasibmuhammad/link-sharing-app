@@ -60,7 +60,7 @@ const Profile = (): JSX.Element | null => {
     return (
         <>
             <header className="px-5 lg:px-0">
-                <div className="max-w-[1300px] w-full mx-auto my-10 bg-white p-6 rounded-lg">
+                <div className="max-w-[1300px] w-full mx-auto md:my-10 md:bg-white py-6 md:p-6 rounded-lg">
                     <Header />
                 </div>
             </header>
@@ -69,7 +69,7 @@ const Profile = (): JSX.Element | null => {
                     <div className="bg-white md:col-span-1 p-6 h-[800px] rounded-lg hidden lg:flex justify-center items-center">
                         <MobileMockupWrapper />
                     </div>
-                    <div className="bg-white p-10 col-span-3 lg:col-span-2 rounded-lg">
+                    <div className="bg-white py-5 md:p-10 col-span-3 lg:col-span-2 rounded-lg">
                         <div className="space-y-4">
                             <h1 className="text-2xl md:text-4xl font-bold text-gray-800">Profile Details</h1>
                             <p className="text-slate-400">
@@ -79,9 +79,9 @@ const Profile = (): JSX.Element | null => {
 
                         <div className="mt-10 space-y-4">
                             <div className="bg-background rounded-xl p-5 space-y-4">
-                                <div className="flex items-center justify-between">
+                                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0">
                                     <label htmlFor="profilepicture" className=" text-slate-400">Profile Picture</label>
-                                    <div className="flex items-center gap-10">
+                                    <div className="flex flex-col md:flex-row md:items-center md:gap-10">
                                         <div
                                             ref={uploadFileRef}
                                             className={`relative rounded-xl w-[193px] h-[193px] bg-primary/20 cursor-pointer`}
@@ -125,7 +125,7 @@ const Profile = (): JSX.Element | null => {
                                 </div>
                             </div>
                             <div className="bg-background rounded-xl p-5 space-y-4">
-                                <div className="flex items-center">
+                                <div className="flex flex-col md:flex-row md:items-center">
                                     <label htmlFor="profilepicture" className=" text-slate-400 max-w-[280px] w-full">First Name *</label>
                                     <div className="w-full">
                                         <input
@@ -134,7 +134,7 @@ const Profile = (): JSX.Element | null => {
                                         />
                                     </div>
                                 </div>
-                                <div className="flex items-center">
+                                <div className="flex flex-col md:flex-row md:items-center">
                                     <label htmlFor="profilepicture" className=" text-slate-400 max-w-[280px] w-full">Last Name *</label>
                                     <div className="w-full">
                                         <input
@@ -143,7 +143,7 @@ const Profile = (): JSX.Element | null => {
                                         />
                                     </div>
                                 </div>
-                                <div className="flex items-center">
+                                <div className="flex flex-col md:flex-row md:items-center">
                                     <label htmlFor="profilepicture" className=" text-slate-400 max-w-[280px] w-full">Email</label>
                                     <div className="w-full">
                                         <input
@@ -157,8 +157,8 @@ const Profile = (): JSX.Element | null => {
 
                         <div className="mt-10">
                             <hr />
-                            <div className="mt-10 flex justify-end items-center">
-                                <button className="bg-primary px-5 py-2 rounded-lg text-white">Save</button>
+                            <div className="mt-10 flex md:justify-end md:items-center">
+                                <button className="bg-primary px-5 py-2 rounded-lg text-white w-full md:w-[100px]">Save</button>
                             </div>
                         </div>
                     </div>
