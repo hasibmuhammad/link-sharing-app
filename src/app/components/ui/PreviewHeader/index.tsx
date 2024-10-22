@@ -1,11 +1,33 @@
+"use client";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const handleCopytoClipboard = (): void => {
-    console.log(window.location.href);
-    navigator.clipboard.writeText(window.location.href);
+interface IProps {
+    onCopy: (state: boolean) => void
 }
 
-const PreviewHeader = (): JSX.Element => {
+const PreviewHeader = ({ onCopy }: IProps): JSX.Element => {
+
+    const [copied, setCopied] = useState(false);
+
+    const handleCopytoClipboard = (): void => {
+        setCopied(false);
+        navigator.clipboard.writeText(window.location.href);
+        setCopied(true);
+    }
+
+    useEffect(() => {
+        if (copied) {
+            setTimeout(() => {
+                setCopied(false);
+            }, 3000)
+        }
+
+        onCopy(copied);
+    }, [copied])
+
+
+
     return (
         <section>
             <div className="flex justify-between">

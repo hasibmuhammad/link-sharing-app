@@ -12,6 +12,7 @@ const Preview = (): JSX.Element | null => {
     const links = useSelector((state: RootState) => { return state?.links?.links });
     const profileInfo = useSelector((state: RootState) => { return state?.profile });
     const [isMounted, setIsMounted] = useState(false);
+    const [copyDone, setCopyDone] = useState(false);
 
     useEffect(() => {
         setIsMounted(true);
@@ -22,11 +23,13 @@ const Preview = (): JSX.Element | null => {
     }
 
     return (
-        <main className="relative">
+        <main className="relative min-h-screen">
             <section className="bg-primary h-[357px] py-5 md:py-10 md:rounded-b-3xl">
                 <header className="px-5 lg:px-0">
                     <div className="max-w-[1300px] w-full mx-auto bg-white p-6 rounded-lg">
-                        <PreviewHeader />
+                        <PreviewHeader onCopy={(copied) => {
+                            setCopyDone(copied);
+                        }} />
                     </div>
                 </header>
             </section>
@@ -113,6 +116,15 @@ const Preview = (): JSX.Element | null => {
                     }
                 </div>
             </section>
+
+            {
+                copyDone &&
+                <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-[#191919] rounded-md py-2 px-4 text-white">
+                        Link copied successfully!
+                    </div>
+                </div>
+            }
         </main>
     )
 }
