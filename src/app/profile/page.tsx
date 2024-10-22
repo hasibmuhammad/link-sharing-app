@@ -12,6 +12,15 @@ const Profile = (): JSX.Element | null => {
     const uploadFileRef = useRef(null);
     const profileInfo = useSelector((state: RootState) => { return state?.profile });
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+
+    const [firstNameError, setFirstNameError] = useState("");
+    const [lastNameError, setLastNameError] = useState("");
+
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -55,6 +64,20 @@ const Profile = (): JSX.Element | null => {
 
     if (!isMounted) {
         return null;
+    }
+
+    const handleSubmitProfile = (e: React.FormEvent<HTMLFormElement>): void => {
+        e.preventDefault();
+        setFirstNameError("");
+        setLastNameError("");
+
+        if (!firstName) {
+            setFirstNameError("First name is required!");
+        }
+
+        if (!lastName) {
+            setLastNameError("Last name is required!");
+        }
     }
 
     return (
@@ -124,41 +147,61 @@ const Profile = (): JSX.Element | null => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="bg-background rounded-xl p-5 space-y-4">
-                                <div className="flex flex-col md:flex-row md:items-center">
-                                    <label htmlFor="profilepicture" className=" text-slate-400 max-w-[280px] w-full">First Name *</label>
-                                    <div className="w-full">
-                                        <input
-                                            placeholder="Enter first name"
-                                            className="w-full bg-white rounded-lg border px-4 h-12 flex items-center focus:outline-none focus:border-primary focus:shadow-custom"
-                                        />
+                            <form id="profile-form" onSubmit={handleSubmitProfile}>
+                                <div className="bg-background rounded-xl p-5 space-y-4">
+                                    <div className="flex flex-col md:flex-row md:items-center">
+                                        <label htmlFor="profilepicture" className=" text-slate-400 max-w-[280px] w-full">First Name *</label>
+                                        <div className="w-full relative">
+                                            <input
+                                                value={firstName}
+                                                onChange={(e) => { setFirstName(e.target.value); }}
+                                                placeholder="Enter first name"
+                                                className={`w-full bg-white rounded-lg border px-4 h-12 flex items-center focus:outline-none focus:border-primary focus:shadow-custom ${firstNameError && "border border-red-400"}`}
+                                            />
+                                            {
+                                                firstNameError &&
+                                                <p className="text-red-400 absolute top-[16px] right-4 text-xs">
+                                                    {firstNameError}
+                                                </p>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col md:flex-row md:items-center">
+                                        <label htmlFor="profilepicture" className=" text-slate-400 max-w-[280px] w-full">Last Name *</label>
+                                        <div className="w-full relative">
+                                            <input
+                                                value={lastName}
+                                                onChange={(e) => { setLastName(e.target.value); }}
+                                                placeholder="Enter last name"
+                                                className={`w-full bg-white rounded-lg border px-4 h-12 flex items-center focus:outline-none focus:border-primary focus:shadow-custom ${lastNameError && "border border-red-400"}`}
+                                            />
+                                            {
+                                                lastNameError &&
+                                                <p className="text-red-400 absolute top-[16px] right-4 text-xs">
+                                                    {lastNameError}
+                                                </p>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col md:flex-row md:items-center">
+                                        <label htmlFor="profilepicture" className=" text-slate-400 max-w-[280px] w-full">Email</label>
+                                        <div className="w-full">
+                                            <input
+                                                value={email}
+                                                onChange={(e) => { setEmail(e.target.value); }}
+                                                placeholder="Enter email"
+                                                className={`w-full bg-white rounded-lg border px-4 h-12 flex items-center focus:outline-none focus:border-primary focus:shadow-custom`}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="flex flex-col md:flex-row md:items-center">
-                                    <label htmlFor="profilepicture" className=" text-slate-400 max-w-[280px] w-full">Last Name *</label>
-                                    <div className="w-full">
-                                        <input
-                                            placeholder="Enter last name"
-                                            className="w-full bg-white rounded-lg border px-4 h-12 flex items-center focus:outline-none focus:border-primary focus:shadow-custom"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="flex flex-col md:flex-row md:items-center">
-                                    <label htmlFor="profilepicture" className=" text-slate-400 max-w-[280px] w-full">Email</label>
-                                    <div className="w-full">
-                                        <input
-                                            placeholder="Enter email"
-                                            className="w-full bg-white rounded-lg border px-4 h-12 flex items-center focus:outline-none focus:border-primary focus:shadow-custom"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                         </div>
 
                         <div className="mt-10">
                             <hr />
                             <div className="mt-10 flex md:justify-end md:items-center">
-                                <button className="bg-primary px-5 py-2 rounded-lg text-white w-full md:w-[100px]">Save</button>
+                                <button type="submit" form="profile-form" className="bg-primary px-5 py-2 rounded-lg text-white w-full md:w-[100px]">Save</button>
                             </div>
                         </div>
                     </div>

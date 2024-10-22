@@ -53,7 +53,7 @@ export const Header = (): JSX.Element => {
                     </ul>
                     <li>
                         <Link href={"/preview"}>
-                            <button className="hover:bg-primary/10 border border-primary px-5 py-2 text-primary rounded-lg font-bold">
+                            <button className="hover:bg-primary/10 border border-primary px-3 md:px-5 py-2.5 md:py-2 text-primary rounded-lg font-bold">
                                 <span className="hidden md:block">Preview</span>
                                 <Image className="md:hidden block" src="/images/preview.svg" width={20} height={20} alt="Logo - Devlinks Logo" />
                             </button>
